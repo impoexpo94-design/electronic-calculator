@@ -1,23 +1,55 @@
-/* styles.css */
+:root {
+  --bg-color: #f9f9f9;
+  --text-color: #333;
+  --btn-bg: #e0e0e0;
+  --btn-hover: #d6d6d6;
+  --operator-bg: #f7b731;
+  --equal-bg: #20bf6b;
+}
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
   font-family: Arial, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+body.dark {
+  --bg-color: #222;
+  --text-color: #f9f9f9;
+  --btn-bg: #444;
+  --btn-hover: #555;
+  --operator-bg: #ff9800;
+  --equal-bg: #4caf50;
+}
+
+.container {
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .calculator {
-  background: #fff;
+  background: white;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  width: 300px;
-}
-
-.display {
-  margin-bottom: 20px;
+  width: 320px;
+  background: var(--bg-color);
 }
 
 #result {
@@ -28,7 +60,9 @@ body {
   padding: 10px;
   border: none;
   border-radius: 10px;
+  margin-bottom: 15px;
   background: #f3f3f3;
+  color: var(--text-color);
 }
 
 .buttons {
@@ -37,37 +71,29 @@ body {
   gap: 10px;
 }
 
-.btn {
+button {
   height: 60px;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   border: none;
   border-radius: 12px;
-  background: #e0e0e0;
+  background: var(--btn-bg);
   cursor: pointer;
   transition: 0.2s;
 }
 
-.btn:hover {
-  background: #d6d6d6;
+button:hover {
+  background: var(--btn-hover);
 }
 
 .operator {
-  background: #f7b731;
+  background: var(--operator-bg);
   color: white;
-}
-
-.operator:hover {
-  background: #e0a323;
 }
 
 .equal {
-  grid-column: span 1;
-  background: #20bf6b;
+  background: var(--equal-bg);
   color: white;
-}
-
-.equal:hover {
-  background: #199f58;
+  grid-column: span 1;
 }
 
 .zero {
