@@ -25,6 +25,14 @@ function calculateResult() {
     document.getElementById("result").value = "Error";
   }
 }
+
+
+
+// 🌙 Toggle Dark/Light Mode
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+}
+
 function squareRoot() {
   try {
     let current = document.getElementById("result").value;
@@ -37,11 +45,6 @@ function squareRoot() {
   }
 }
 
-
-// 🌙 Toggle Dark/Light Mode
-function toggleTheme() {
-  document.body.classList.toggle("dark");
-}
 
 // ⌨️ Keyboard Support
 document.addEventListener("keydown", function(event) {
@@ -59,4 +62,5 @@ document.addEventListener("keydown", function(event) {
     appendValue(".");
   }
 });
+
 
