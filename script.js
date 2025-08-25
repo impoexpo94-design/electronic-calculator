@@ -19,12 +19,17 @@ function deleteChar() {
 function calculateResult() {
   try {
     let expression = document.getElementById("result").value;
+
+    // Convert ^ into ** so eval() can understand it
+    expression = expression.replace(/\^/g, "**");
+
     let result = eval(expression);
     document.getElementById("result").value = result;
   } catch {
     document.getElementById("result").value = "Error";
   }
 }
+
 
 
 
@@ -80,6 +85,7 @@ document.addEventListener("keydown", function(event) {
     appendValue(".");
   }
 });
+
 
 
 
