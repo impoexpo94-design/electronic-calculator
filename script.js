@@ -45,6 +45,18 @@ function squareRoot() {
   }
 }
 
+function power() {
+  try {
+    let current = document.getElementById("result").value;
+    if (current) {
+      document.getElementById("result").value = current + "**";
+    }
+  } catch {
+    document.getElementById("result").value = "Error";
+  }
+}
+
+
 
 // ⌨️ Keyboard Support
 document.addEventListener("keydown", function(event) {
@@ -62,5 +74,6 @@ document.addEventListener("keydown", function(event) {
     appendValue(".");
   }
 });
+
 
 
