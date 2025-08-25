@@ -1,107 +1,184 @@
+/* --- Reset / Base --- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+/* --- Theme Variables --- */
 :root {
-  --bg-color: #f9f9f9;
-  --text-color: #333;
-  --btn-bg: #e0e0e0;
-  --btn-hover: #d6d6d6;
+  /* Page & panel */
+  --page-bg: #f0f2f5;
+  --text-color: #222;
+  --panel-bg: #ffffff;
+
+  /* Buttons */
+  --btn-bg: #e7e9ee;
+  --btn-hover: #dce0e7;
+  --btn-text: #111;
+
+  /* Operator & Equal */
   --operator-bg: #f7b731;
+  --operator-hover: #e3a824;
+  --operator-text: #fff;
+
   --equal-bg: #20bf6b;
+  --equal-hover: #199f58;
+  --equal-text: #fff;
+
+  /* Display (SCREEN) — always dark to contrast keypad */
+  --display-bg: linear-gradient(145deg, #0e0e0f, #2a2b2f);
+  --display-text: #00ff88;          /* neon green */
+  --display-glow: 0 0 8px #00ff88;  /* glow */
+  --display-inset: inset 0 0 12px rgba(0,0,0,0.85);
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;       /* full screen height */
-  background: #f0f0f0; /* or dark if you prefer */
-  margin: 0;
-}
-
-
+/* Dark mode toggled by <body class="dark"> */
 body.dark {
-  --bg-color: #222;
-  --text-color: #f9f9f9;
-  --btn-bg: #444;
-  --btn-hover: #555;
-  --operator-bg: #ff9800;
-  --equal-bg: #4caf50;
+  --page-bg: #0f1115;
+  --text-color: #e6e6e6;
+  --panel-bg: #171a21;
+
+  --btn-bg: #292d36;
+  --btn-hover: #333844;
+  --btn-text: #e6e6e6;
+
+  --operator-bg: #f39c12;
+  --operator-hover: #d8890f;
+  --operator-text: #101215;
+
+  --equal-bg: #27ae60;
+  --equal-hover: #1e8f4e;
+  --equal-text: #0e130f;
+
+  /* Keep the display dark, adjust glow color slightly */
+  --display-bg: linear-gradient(145deg, #0a0b0c, #232528);
+  --display-text: #6fffd3;
+  --display-glow: 0 0 10px #6fffd3;
+  --display-inset: inset 0 0 14px rgba(0,0,0,0.9);
 }
 
+/* --- Page Layout --- */
+body {
+  background: var(--page-bg);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* --- Container / Header / Toggle --- */
 .container {
   text-align: center;
+  width: 100%;
+  max-width: 380px;
 }
 
 h2 {
-  margin-bottom: 10px;
+  margin: 0 0 8px;
+  font-weight: 700;
+  letter-spacing: .3px;
 }
 
 .toggle-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
+  background: transparent;
+  border: 0;
+  font-size: 1.25rem;
   cursor: pointer;
-  margin-bottom: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: transform .12s ease;
+  color: var(--text-color);
+  margin-bottom: 12px;
 }
+.toggle-btn:hover { transform: scale(1.08); }
 
+/* --- Calculator Panel --- */
 .calculator {
-  background: white;
-  padding: 20px;
+  background: var(--panel-bg);
   border-radius: 20px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  width: 320px;
-  background: var(--bg-color);
+  padding: 18px;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.15),
+    0 3px 8px rgba(0,0,0,0.08);
 }
 
+/* --- Display (SCREEN) --- */
 #result {
   width: 100%;
-  height: 80px;
+  height: 86px;                    /* Taller screen */
+  padding: 16px 14px;
   text-align: right;
-  font-size: 32px;                  /* bigger display numbers */
-  padding: 15px;
+  font-size: 32px;                 /* Larger digits */
+  line-height: 1;
   border: none;
   outline: none;
-  background: linear-gradient(145deg, #111, #333); /* glassy dark gradient */
-  color: #00ff88;                   /* neon green text */
-  text-shadow: 0 0 8px #00ff88;     /* glowing effect */
   border-radius: 12px;
-  margin-bottom: 15px;
-  box-shadow: inset 0 0 12px #000;  /* recessed look */
+  margin-bottom: 16px;
+
+  background: var(--display-bg);   /* Dark, glassy */
+  color: var(--display-text);
+  text-shadow: var(--display-glow);
+  box-shadow: var(--display-inset);
+
+  /* Ensure disabled inputs don’t get dimmed by the browser */
+  opacity: 1;
+  -webkit-text-fill-color: var(--display-text);
 }
 
-
+/* --- Keypad Grid --- */
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
+/* --- Buttons --- */
 button {
   height: 60px;
-  font-size: 1.2rem;
   border: none;
   border-radius: 12px;
   background: var(--btn-bg);
+  color: var(--btn-text);
+  font-size: 1.15rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: background .15s ease, transform .05s ease, box-shadow .15s ease;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.15);
+  user-select: none;
 }
 
-button:hover {
-  background: var(--btn-hover);
-}
+button:hover { background: var(--btn-hover); }
+button:active { transform: translateY(1px); box-shadow: 0 1px 0 rgba(0,0,0,0.18); }
 
+/* Operator & Equal */
 .operator {
   background: var(--operator-bg);
-  color: white;
+  color: var(--operator-text);
 }
+.operator:hover { background: var(--operator-hover); }
 
 .equal {
   background: var(--equal-bg);
-  color: white;
-  grid-column: span 1;
+  color: var(--equal-text);
+}
+.equal:hover { background: var(--equal-hover); }
+
+/* Wide Zero */
+.zero { grid-column: span 2; }
+
+/* --- Responsive Tweaks --- */
+@media (max-width: 380px) {
+  .calculator { padding: 14px; border-radius: 16px; }
+  #result { height: 78px; font-size: 28px; }
+  button { height: 56px; font-size: 1.05rem; }
 }
 
-.zero {
-  grid-column: span 2;
+/* Optional: Focus outline for accessibility */
+button:focus-visible,
+.toggle-btn:focus-visible,
+#result:focus-visible {
+  outline: 2px solid #6aa9ff;
+  outline-offset: 2px;
 }
-
-
-
