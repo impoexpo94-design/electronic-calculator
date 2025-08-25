@@ -11,12 +11,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  font-family: Arial, sans-serif;
-  background: var(--bg-color);
-  color: var(--text-color);
-  transition: all 0.3s ease;
+  height: 100vh;       /* full screen height */
+  background: #f0f0f0; /* or dark if you prefer */
+  margin: 0;
 }
+
 
 body.dark {
   --bg-color: #222;
@@ -103,5 +102,6 @@ button:hover {
 .zero {
   grid-column: span 2;
 }
+
 
 
