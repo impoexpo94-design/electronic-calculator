@@ -25,6 +25,18 @@ function calculateResult() {
     document.getElementById("result").value = "Error";
   }
 }
+function squareRoot() {
+  try {
+    let current = document.getElementById("result").value;
+    if (current) {
+      let result = Math.sqrt(eval(current));
+      document.getElementById("result").value = result;
+    }
+  } catch {
+    document.getElementById("result").value = "Error";
+  }
+}
+
 
 // 🌙 Toggle Dark/Light Mode
 function toggleTheme() {
@@ -47,3 +59,4 @@ document.addEventListener("keydown", function(event) {
     appendValue(".");
   }
 });
+
