@@ -54,15 +54,18 @@ h2 {
 
 #result {
   width: 100%;
-  height: 60px;
+  height: 80px;
   text-align: right;
-  font-size: 24px;
-  padding: 10px;
+  font-size: 32px;                  /* bigger display numbers */
+  padding: 15px;
   border: none;
   outline: none;
-  background-color: #222;   /* Dark grey/black screen */
-  color: #0f0;              /* Green text (like digital display) */
-  border-radius: 8px;
+  background: linear-gradient(145deg, #111, #333); /* glassy dark gradient */
+  color: #00ff88;                   /* neon green text */
+  text-shadow: 0 0 8px #00ff88;     /* glowing effect */
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: inset 0 0 12px #000;  /* recessed look */
 }
 
 
@@ -100,4 +103,5 @@ button:hover {
 .zero {
   grid-column: span 2;
 }
+
 
