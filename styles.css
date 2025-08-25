@@ -55,15 +55,16 @@ h2 {
 #result {
   width: 100%;
   height: 60px;
-  font-size: 2rem;
   text-align: right;
+  font-size: 24px;
   padding: 10px;
   border: none;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  background: #f3f3f3;
-  color: var(--text-color);
+  outline: none;
+  background-color: #222;   /* Dark grey/black screen */
+  color: #0f0;              /* Green text (like digital display) */
+  border-radius: 8px;
 }
+
 
 .buttons {
   display: grid;
@@ -99,3 +100,4 @@ button:hover {
 .zero {
   grid-column: span 2;
 }
+
