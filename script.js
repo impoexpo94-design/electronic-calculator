@@ -46,13 +46,19 @@ function squareRoot() {
 }
 
 function power() {
-  try {
-    let current = document.getElementById("result").value;
-    if (current) {
-      document.getElementById("result").value = current + "**";
+  let current = document.getElementById("result").value;
+
+  if (current) {
+    // Ask user for the exponent
+    let exponent = prompt("Enter exponent value:");
+    if (exponent !== null && exponent !== "") {
+      try {
+        let result = Math.pow(eval(current), eval(exponent));
+        document.getElementById("result").value = result;
+      } catch {
+        document.getElementById("result").value = "Error";
+      }
     }
-  } catch {
-    document.getElementById("result").value = "Error";
   }
 }
 
@@ -74,6 +80,7 @@ document.addEventListener("keydown", function(event) {
     appendValue(".");
   }
 });
+
 
 
 
