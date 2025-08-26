@@ -1,23 +1,20 @@
-/* --- Reset / Base --- */
+/* Reset / Base */
 *,
 *::before,
 *::after { box-sizing: border-box; }
 html, body { height: 100%; }
 body { margin: 0; font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
 
-/* --- Theme Variables --- */
+/* Theme Variables */
 :root {
-  /* Page & panel */
   --page-bg: #f0f2f5;
   --text-color: #222;
   --panel-bg: #ffffff;
 
-  /* Buttons */
   --btn-bg: #e7e9ee;
   --btn-hover: #dce0e7;
   --btn-text: #111;
 
-  /* Operator & Equal */
   --operator-bg: #f7b731;
   --operator-hover: #e3a824;
   --operator-text: #fff;
@@ -26,14 +23,14 @@ body { margin: 0; font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto
   --equal-hover: #199f58;
   --equal-text: #fff;
 
-  /* Display (SCREEN) — always dark to contrast keypad */
+  /* Display (dark to contrast keypad) */
   --display-bg: linear-gradient(145deg, #0e0e0f, #2a2b2f);
-  --display-text: #00ff88;          /* neon green */
-  --display-glow: 0 0 8px #00ff88;  /* glow */
+  --display-text: #00ff88;
+  --display-glow: 0 0 8px #00ff88;
   --display-inset: inset 0 0 12px rgba(0,0,0,0.85);
 }
 
-/* Dark mode toggled by <body class="dark"> */
+/* Dark mode */
 body.dark {
   --page-bg: #0f1115;
   --text-color: #e6e6e6;
@@ -51,14 +48,13 @@ body.dark {
   --equal-hover: #1e8f4e;
   --equal-text: #0e130f;
 
-  /* Keep the display dark, adjust glow color slightly */
   --display-bg: linear-gradient(145deg, #0a0b0c, #232528);
   --display-text: #6fffd3;
   --display-glow: 0 0 10px #6fffd3;
   --display-inset: inset 0 0 14px rgba(0,0,0,0.9);
 }
 
-/* --- Page Layout --- */
+/* Layout */
 body {
   background: var(--page-bg);
   color: var(--text-color);
@@ -68,16 +64,16 @@ body {
   padding: 24px;
 }
 
-/* --- Container / Header / Toggle --- */
 .container {
   text-align: center;
   width: 100%;
   max-width: 380px;
 }
 
-h2 {
+h1 {
   margin: 0 0 8px;
-  font-weight: 700;
+  font-size: 1.35rem;
+  font-weight: 800;
   letter-spacing: .3px;
 }
 
@@ -94,7 +90,7 @@ h2 {
 }
 .toggle-btn:hover { transform: scale(1.08); }
 
-/* --- Calculator Panel --- */
+/* Calculator panel */
 .calculator {
   background: var(--panel-bg);
   border-radius: 20px;
@@ -104,37 +100,35 @@ h2 {
     0 3px 8px rgba(0,0,0,0.08);
 }
 
-/* --- Display (SCREEN) --- */
+/* Display */
 #result {
   width: 100%;
-  height: 86px;                    /* Taller screen */
+  height: 86px;
   padding: 16px 14px;
   text-align: right;
-  font-size: 32px;                 /* Larger digits */
+  font-size: 32px;
   line-height: 1;
   border: none;
   outline: none;
   border-radius: 12px;
   margin-bottom: 16px;
 
-  background: var(--display-bg);   /* Dark, glassy */
+  background: var(--display-bg);
   color: var(--display-text);
   text-shadow: var(--display-glow);
   box-shadow: var(--display-inset);
 
-  /* Ensure disabled inputs don’t get dimmed by the browser */
   opacity: 1;
   -webkit-text-fill-color: var(--display-text);
 }
 
-/* --- Keypad Grid --- */
+/* Keypad */
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
-/* --- Buttons --- */
 button {
   height: 60px;
   border: none;
@@ -148,11 +142,9 @@ button {
   box-shadow: 0 2px 0 rgba(0,0,0,0.15);
   user-select: none;
 }
-
 button:hover { background: var(--btn-hover); }
 button:active { transform: translateY(1px); box-shadow: 0 1px 0 rgba(0,0,0,0.18); }
 
-/* Operator & Equal */
 .operator {
   background: var(--operator-bg);
   color: var(--operator-text);
@@ -165,34 +157,30 @@ button:active { transform: translateY(1px); box-shadow: 0 1px 0 rgba(0,0,0,0.18)
 }
 .equal:hover { background: var(--equal-hover); }
 
-/* Wide Zero */
 .zero { grid-column: span 2; }
 
-/* --- Responsive Tweaks --- */
-@media (max-width: 380px) {
-  .calculator { padding: 14px; border-radius: 16px; }
-  #result { height: 78px; font-size: 28px; }
-  button { height: 56px; font-size: 1.05rem; }
-}
-
-/* Optional: Focus outline for accessibility */
-button:focus-visible,
-.toggle-btn:focus-visible,
-#result:focus-visible {
-  outline: 2px solid #6aa9ff;
-  outline-offset: 2px;
-}
+/* About (minimal, SEO text) */
 .about {
-  max-width: 500px;
-  margin: 20px auto;
+  max-width: 520px;
+  margin: 20px auto 0;
   padding: 10px 15px;
   text-align: center;
   font-size: 0.95rem;
   color: #555;
   line-height: 1.6;
 }
-.about strong {
-  color: #222;
+.about strong { color: #222; }
+
+@media (max-width: 380px) {
+  .calculator { padding: 14px; border-radius: 16px; }
+  #result { height: 78px; font-size: 28px; }
+  button { height: 56px; font-size: 1.05rem; }
 }
 
-
+/* Focus outline */
+button:focus-visible,
+.toggle-btn:focus-visible,
+#result:focus-visible {
+  outline: 2px solid #6aa9ff;
+  outline-offset: 2px;
+}
