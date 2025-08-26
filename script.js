@@ -1,92 +1,85 @@
+// Append to display
 function appendValue(value) {
   document.getElementById("result").value += value;
 }
 
+// Clear all
 function clearResult() {
   document.getElementById("result").value = "";
 }
 
-function clearEntry() {
-  let current = document.getElementById("result").value;
-  document.getElementById("result").value = current.split(/[\+\-\*\/]/).slice(0, -1).join('');
-}
-
+// Backspace
 function deleteChar() {
-  let current = document.getElementById("result").value;
-  document.getElementById("result").value = current.slice(0, -1);
+  const el = document.getElementById("result");
+  el.value = el.value.slice(0, -1);
 }
 
+// Evaluate helper with safety + caret support
+function evaluateExpression(expr) {
+  // Allow only safe characters
+  const safe = /^[0-9+\-*/().^ \t]+$/.test(expr);
+  if (!safe) throw new Error("Invalid");
+
+  // Convert ^ to ** for JS
+  const normalized = expr.replace(/\^/g, "**");
+  // Evaluate
+  // eslint-disable-next-line no-eval
+  const result = eval(normalized);
+  if (typeof result !== "number" || !isFinite(result)) throw new Error("Invalid");
+  return result;
+}
+
+// =
 function calculateResult() {
   try {
-    let expression = document.getElementById("result").value;
-
-    // Convert ^ into ** so eval() can understand it
-    expression = expression.replace(/\^/g, "**");
-
-    let result = eval(expression);
-    document.getElementById("result").value = result;
+    const el = document.getElementById("result");
+    const expression = el.value.trim();
+    if (!expression) return;
+    const result = evaluateExpression(expression);
+    el.value = result;
   } catch {
     document.getElementById("result").value = "Error";
   }
 }
 
+// √ on current expression/value
+function squareRoot() {
+  try {
+    const el = document.getElementById("result");
+    const expression = el.value.trim();
+    if (!expression) return;
+    const value = evaluateExpression(expression);
+    if (value < 0) throw new Error("Invalid"); // no real sqrt for negatives
+    el.value = Math.sqrt(value);
+  } catch {
+    document.getElementById("result").value = "Error";
+  }
+}
 
-
-
-// 🌙 Toggle Dark/Light Mode
+// Theme toggle
 function toggleTheme() {
   document.body.classList.toggle("dark");
 }
 
-function squareRoot() {
-  try {
-    let current = document.getElementById("result").value;
-    if (current) {
-      let result = Math.sqrt(eval(current));
-      document.getElementById("result").value = result;
-    }
-  } catch {
-    document.getElementById("result").value = "Error";
-  }
-}
+// Keyboard support
+document.addEventListener("keydown", (e) => {
+  const key = e.key;
 
-function power() {
-  let current = document.getElementById("result").value;
-
-  if (current) {
-    // Ask user for the exponent
-    let exponent = prompt("Enter exponent value:");
-    if (exponent !== null && exponent !== "") {
-      try {
-        let result = Math.pow(eval(current), eval(exponent));
-        document.getElementById("result").value = result;
-      } catch {
-        document.getElementById("result").value = "Error";
-      }
-    }
-  }
-}
-
-
-
-// ⌨️ Keyboard Support
-document.addEventListener("keydown", function(event) {
-  let key = event.key;
-
-  if (!isNaN(key) || "+-*/.%".includes(key)) {
+  if (/^[0-9()]$/.test(key)) {
     appendValue(key);
-  } else if (key === "Enter") {
+  } else if ("+-*/.^".includes(key)) {
+    appendValue(key);
+    e.preventDefault(); // prevent browser find dialog on "/"
+  } else if (key === "Enter" || key === "=") {
     calculateResult();
+    e.preventDefault();
   } else if (key === "Backspace") {
     deleteChar();
   } else if (key === "Escape") {
     clearResult();
-  } else if (key === ".") {
+  } else if (key === ",") {
+    // Some keyboards use comma for decimal - convert to dot
     appendValue(".");
+    e.preventDefault();
   }
 });
-
-
-
-
-
